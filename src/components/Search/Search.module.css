@@ -1,0 +1,23 @@
+.searchBox {
+    position: relative;
+    top: 0;
+    right: -30px;
+}
+
+.image {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    left: -35px;
+    top: 8px;
+}
+
+.search {
+    outline: none;
+    width: 400px;
+    height: 40px;
+    border-radius: 20px;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+}
