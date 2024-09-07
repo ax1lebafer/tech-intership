@@ -28,7 +28,7 @@ const Listing: React.FC = () => {
       }
     };
 
-    getAdvertisements();
+    void getAdvertisements();
   }, []);
 
   return (

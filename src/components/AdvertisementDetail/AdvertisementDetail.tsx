@@ -9,7 +9,7 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
 const AdvertisementDetail: React.FC = () => {
-  const { id } = useParams<{ id: string }>(); // Извлекаем id из URL
+  const { id } = useParams<{ id: string }>();
   const [advertisement, setAdvertisement] = useState<Advertisment | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -32,7 +32,7 @@ const AdvertisementDetail: React.FC = () => {
     };
 
     if (id) {
-      getAdvertisement();
+      void getAdvertisement();
     }
   }, [id]);
 
@@ -43,15 +43,6 @@ const AdvertisementDetail: React.FC = () => {
       </div>
     );
   }
-
-  // if (loading) {
-  //   return (
-  //     <div className={styles.loading}>
-  //       {/*<p>Загрузка</p>*/}
-  //       {/*<Skeleton count={1} />*/}
-  //     </div>
-  //   );
-  // }
 
   return (
     <div className={styles.detail}>
