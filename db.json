@@ -8,7 +8,7 @@
       "createdAt": "2022-08-12T20:16:55.351Z",
       "views": 20,
       "likes": 2,
-      "imageUrl": ""
+      "imageUrl": "https://avatars.mds.yandex.net/i?id=37cd558b585107caf11070164c78b03e51d0d632-12433518-images-thumbs&n=13"
     },
     {
       "id": "2",
@@ -18,7 +18,7 @@
       "createdAt": "2023-08-12T20:16:55.351Z",
       "views": 77832,
       "likes": 45666,
-      "imageUrl": ""
+      "imageUrl": "https://avatars.mds.yandex.net/i?id=bcfb0fb3e9656e05d485b008ca42783f4e4fd3ca-8185245-images-thumbs&n=13"
     },
     {
       "id": "3",
@@ -27,7 +27,7 @@
       "createdAt": "2024-08-12T20:16:55.351Z",
       "views": 900,
       "likes": 19,
-      "imageUrl": ""
+      "imageUrl": "https://avatars.mds.yandex.net/i?id=e17c21356776dff8820ec2135bb1d460ec47004a-5231779-images-thumbs&n=13"
     },
     {
       "id": "4",
@@ -75,6 +75,106 @@
       "createdAt": "2024-08-12T12:16:55.351Z",
       "views": 200000,
       "likes": 302,
+      "imageUrl": ""
+    },
+    {
+      "id": "9",
+      "name": "Палатка туристическая",
+      "description": "Просто незаменимая вещь",
+      "price": 72160,
+      "createdAt": "2023-09-01T12:22:37.801841",
+      "views": 243354,
+      "likes": 82141,
+      "imageUrl": ""
+    },
+    {
+      "id": "10",
+      "name": "Радиоуправляемая машина",
+      "description": "Ваш дом станет лучше",
+      "price": 62738,
+      "createdAt": "2022-12-01T12:22:37.801890",
+      "views": 154224,
+      "likes": 54413,
+      "imageUrl": ""
+    },
+    {
+      "id": "11",
+      "name": "Солнечные очки",
+      "description": "Создан для вас",
+      "price": 38636,
+      "createdAt": "2022-10-29T12:22:37.801910",
+      "views": 941100,
+      "likes": 632982,
+      "imageUrl": ""
+    },
+    {
+      "id": "12",
+      "name": "Смарт-часы",
+      "description": "Выглядит потрясающе",
+      "price": 2379,
+      "createdAt": "2023-02-12T12:22:37.801926",
+      "views": 737241,
+      "likes": 368490,
+      "imageUrl": ""
+    },
+    {
+      "id": "13",
+      "name": "Электрический самокат",
+      "description": "Может всё",
+      "price": 24201,
+      "createdAt": "2024-04-05T12:22:37.801942",
+      "views": 370661,
+      "likes": 121970,
+      "imageUrl": ""
+    },
+    {
+      "id": "14",
+      "name": "Шезлонг пляжный",
+      "description": "Для тех, кто ценит комфорт",
+      "price": 15776,
+      "createdAt": "2022-12-12T12:22:37.801958",
+      "views": 437982,
+      "likes": 387113,
+      "imageUrl": ""
+    },
+    {
+      "id": "15",
+      "name": "Портативная колонка",
+      "description": "Создан для вас",
+      "price": 63721,
+      "createdAt": "2022-10-19T12:22:37.801973",
+      "views": 410299,
+      "likes": 346406,
+      "imageUrl": ""
+    },
+    {
+      "id": "16",
+      "name": "Кофеварка премиум-класса",
+      "description": "Ваш дом станет лучше",
+      "price": 88660,
+      "createdAt": "2023-05-17T12:22:37.801994",
+      "views": 932748,
+      "likes": 899546,
+      "imageUrl": ""
+    },
+    {
+      "id": "17",
+      "name": "Рюкзак городской",
+      "description": "Для самых стильных",
+      "price": 56828,
+      "createdAt": "2023-07-31T12:22:37.802010",
+      "views": 978630,
+      "likes": 887790,
+      "imageUrl": ""
+    },
+    {
+      "id": "18",
+      "name": "Смарт-часы",
+      "description": "Может всё",
+      "price": 43801,
+      "createdAt": "2024-02-09T12:22:37.802027",
+      "views": 357498,
+      "likes": 246697,
       "imageUrl": ""
     }
   ],
