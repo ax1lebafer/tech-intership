@@ -8,6 +8,7 @@ import {
 import NavigationBar from './components/NavigationBar/NavigationBar.tsx';
 import ListingPage from './pages/ListingPage.tsx';
 import AdvertisementDetailPage from './pages/AdvertisementDetailPage.tsx';
+import Footer from './components/Footer/Footer.tsx';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           element={<AdvertisementDetailPage />}
         />
       </Routes>
+      <Footer />
     </Router>
   );
 }

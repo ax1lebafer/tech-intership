@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom';
 import { Advertisment } from '../../../types.ts';
 import { fetchAdvertisementById } from '../../api/advertisements.ts';
 import { formatTime } from '../../utils/formatTime.ts';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 const AdvertisementDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>(); // Извлекаем id из URL
@@ -34,19 +36,74 @@ const AdvertisementDetail: React.FC = () => {
     }
   }, [id]);
 
+  if (error) {
+    return (
+      <div className={styles.error}>
+        <p className={styles.errorMessage}>{error}</p>
+      </div>
+    );
+  }
+
+  // if (loading) {
+  //   return (
+  //     <div className={styles.loading}>
+  //       {/*<p>Загрузка</p>*/}
+  //       {/*<Skeleton count={1} />*/}
+  //     </div>
+  //   );
+  // }
+
   return (
     <div className={styles.detail}>
-      <img
-        className={styles.image}
-        src={advertisement?.imageUrl}
-        alt="Product Image"
-      />
-      <div className={styles.infoBox}>
-        <h1 className={styles.title}>{advertisement?.name}</h1>
-        <p className={styles.price}>{advertisement?.price} ₽</p>
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <div className={styles.infoBox}>
+            <h1 className={styles.title}>
+              {loading ? <Skeleton width={400} /> : advertisement?.name}
+            </h1>
+            <p className={styles.price}>
+              {loading ? <Skeleton width={200} /> : `${advertisement?.price} ₽`}
+            </p>
+          </div>
+          <div className={styles.bottom}>
+            <p className={styles.date}>
+              {loading ? (
+                <Skeleton width={150} />
+              ) : (
+                `Создан: ${formatTime(advertisement?.createdAt!)}`
+              )}
+            </p>
+            {loading ? (
+              <Skeleton width={141} height={38} borderRadius={10} />
+            ) : (
+              <button className={styles.editButton}>Редактировать</button>
+            )}
+          </div>
+        </div>
+        <div className={styles.section}>
+          {loading ? (
+            <Skeleton width={450} height={450} borderRadius={20} />
+          ) : (
+            <img
+              className={styles.image}
+              src={advertisement?.imageUrl || 'https://via.placeholder.com/450'}
+              alt="Product Image"
+            />
+          )}
+          <div className={styles.sectionBox}>
+            <p className={styles.descriptionTitle}>
+              {loading ? <Skeleton width={200} /> : 'Описание'}
+            </p>
+            <p>
+              {loading ? (
+                <Skeleton width={400} count={16} />
+              ) : (
+                advertisement?.description
+              )}
+            </p>
+          </div>
+        </div>
       </div>
-
-      <p>Создан: {formatTime(advertisement?.createdAt!)}</p>
     </div>
   );
 };

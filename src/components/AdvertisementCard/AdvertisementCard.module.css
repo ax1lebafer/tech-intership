@@ -6,6 +6,7 @@
     padding: 10px;
     border-radius: 10px;
     gap: 5px;
+    box-shadow: 5px 5px 5px #d5d5d5;
 }
 
 .image {

@@ -4,6 +4,7 @@ import { fetchAdvertisements } from '../../api/advertisements.ts';
 import { Advertisment } from '../../../types.ts';
 import styles from './Listing.module.css';
 import AdvertisementCard from '../AdvertisementCard/AdvertisementCard.tsx';
+import Skeleton from 'react-loading-skeleton';
 
 const Listing: React.FC = () => {
   const [advertisements, setAdvertisements] = useState<Advertisment[]>([]);
@@ -30,16 +31,26 @@ const Listing: React.FC = () => {
     getAdvertisements();
   }, []);
 
-  if (loading) {
-    return <div>Загрузка...</div>;
-  }
-
   return (
     <div className={styles.listing}>
       {error && <div className={styles.error}>{error}</div>}
-      {advertisements.map((ad) => (
-        <AdvertisementCard key={ad.id} advertisement={ad} />
-      ))}
+      {loading && (
+        <Skeleton
+          width={240}
+          height={357}
+          borderRadius={20}
+          count={20}
+          containerClassName={styles.skeleton}
+          style={{ boxSizing: 'border-box' }}
+        />
+      )}
+      {!loading && (
+        <>
+          {advertisements.map((ad) => (
+            <AdvertisementCard key={ad.id} advertisement={ad} />
+          ))}
+        </>
+      )}
     </div>
   );
 };
