@@ -11,3 +11,15 @@ export async function fetchAdvertisements(): Promise<Advertisment[]> {
 
   return await response.json();
 }
+
+export async function fetchAdvertisementById(
+  id: string,
+): Promise<Advertisment> {
+  const response = await fetch(`${HOST_GET}/${id}`);
+
+  if (!response.ok) {
+    throw new Error('Ошибка при загрузке объявления');
+  }
+
+  return await response.json();
+}

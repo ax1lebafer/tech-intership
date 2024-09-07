@@ -16,7 +16,7 @@ const AdvertisementCard: React.FC<AdvertisementCardProps> = ({
         src={advertisement.imageUrl || 'https://via.placeholder.com/250'}
         alt="product-image"
       />
-      <Link className={styles.title} to="/">
+      <Link className={styles.title} to={`/advertisements/${advertisement.id}`}>
         {advertisement.name}
       </Link>
       <p className={styles.price}>{advertisement.price} ₽</p>

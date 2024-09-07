@@ -1,0 +1,23 @@
+.detail {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+}
+
+.image {
+    width: 600px;
+    height: 450px;
+}
+
+.infoBox {
+    display: flex;
+}
+
+.title {
+
+}
+
+.price {
+
+}
+
