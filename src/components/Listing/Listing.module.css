@@ -1,5 +1,4 @@
 .listing {
-    /*margin-top: 30px;*/
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
@@ -8,6 +7,10 @@
 .error {
     color: red;
     font-size: 24px;
+    width: 100%;
+    display: flex;
+    text-align: center;
+    justify-content: center;
 }
 
 .skeleton {
