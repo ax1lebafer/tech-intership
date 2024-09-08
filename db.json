@@ -27,7 +27,8 @@
       "createdAt": "2024-08-12T20:16:55.351Z",
       "views": 900,
       "likes": 19,
-      "imageUrl": "https://avatars.mds.yandex.net/i?id=e17c21356776dff8820ec2135bb1d460ec47004a-5231779-images-thumbs&n=13"
+      "imageUrl": "https://avatars.mds.yandex.net/i?id=e17c21356776dff8820ec2135bb1d460ec47004a-5231779-images-thumbs&n=13",
+      "description": "Тот самый плащ с Гарри Поттера! )"
     },
     {
       "id": "4",
@@ -80,7 +81,7 @@
     {
       "id": "9",
       "name": "Палатка туристическая",
-      "description": "Просто незаменимая вещь",
+      "description": "Просто незаменимая вещь!",
       "price": 72160,
       "createdAt": "2023-09-01T12:22:37.801841",
       "views": 243354,
@@ -179,8 +180,8 @@
     },
     {
       "id": "1725808884752",
-      "name": "Санки",
-      "description": "",
+      "name": "Сани",
+      "description": "Готовь сани летом, а телегу зимой ",
       "price": 2000,
       "imageUrl": "",
       "createdAt": "2024-09-08T15:21:24.752Z",

@@ -60,3 +60,22 @@ export async function createAdvertisement(
 
   return response.json();
 }
+
+export async function updateAdvertisement(
+  id: string,
+  updatedData: Partial<Advertisment>,
+): Promise<Advertisment> {
+  const response = await fetch(`${HOST_GET}/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+    body: JSON.stringify(updatedData),
+  });
+
+  if (!response.ok) {
+    throw new Error('Ошибка при обновлении объявления');
+  }
+
+  return response.json();
+}

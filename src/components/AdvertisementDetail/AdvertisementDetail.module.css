@@ -35,6 +35,23 @@
     margin-bottom: 20px;
 }
 
+.input {
+    font-size: 36px;
+    font-weight: 700;
+    height: 54px;
+    border-radius: 20px;
+    border: 1px solid black;
+    padding: 0 15px;
+}
+
+.inputTitle {
+    width: 500px;
+}
+
+.inputPrice {
+    width: 200px;
+}
+
 .title {
     font-weight: 700;
     font-size: 36px;
@@ -51,7 +68,21 @@
     align-items: center;
 }
 
-.date {
+.buttonBox {
+    display: flex;
+    gap: 20px;
+}
+
+.button {
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: none;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.button:hover {
+    background-color: #c5c4c4;
 }
 
 .editButton {
@@ -84,5 +115,14 @@
 .descriptionTitle {
     font-size: 36px;
     font-weight: 700;
+}
+
+.textarea {
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 20px;
+    resize: none;
 }
 

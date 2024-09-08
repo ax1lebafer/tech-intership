@@ -2,39 +2,48 @@ import * as React from 'react';
 import styles from './AdvertisementDetail.module.css';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Advertisment } from '../../../types.ts';
-import { fetchAdvertisementById } from '../../api/advertisements.ts';
 import { formatTime } from '../../utils/formatTime.ts';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { useAppDispatch, useAppSelector } from '../../store/store.ts';
+import {
+  getAdvertisementById,
+  updateExistingAdvertisement,
+} from '../../store/features/advSlice.ts';
+import { Advertisment } from '../../../types.ts';
+import cn from 'classnames';
 
 const AdvertisementDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [advertisement, setAdvertisement] = useState<Advertisment | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+
+  const dispatch = useAppDispatch();
+  const { selectedAdvertisement, loading, error } = useAppSelector(
+    (state) => state.advertisement,
+  );
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedFields, setEditedFields] = useState<Partial<Advertisment>>({});
 
   useEffect(() => {
-    const getAdvertisement = async () => {
-      try {
-        setLoading(true);
-        const data = await fetchAdvertisementById(id!);
-        setAdvertisement(data);
-      } catch (error: unknown) {
-        if (error instanceof Error) {
-          setError(error.message);
-        } else {
-          setError('Неизвестная ошибка');
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-
     if (id) {
-      void getAdvertisement();
+      dispatch(getAdvertisementById(id));
     }
-  }, [id]);
+  }, [dispatch, id]);
+
+  const handleFieldChange = (field: keyof Advertisment, value: any) => {
+    setEditedFields((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
+  const handleSave = () => {
+    if (id && Object.keys(editedFields).length > 0) {
+      dispatch(updateExistingAdvertisement({ id, data: editedFields }));
+      setIsEditing(false);
+      setEditedFields({});
+    }
+  };
 
   if (error) {
     return (
@@ -49,25 +58,74 @@ const AdvertisementDetail: React.FC = () => {
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.infoBox}>
-            <h1 className={styles.title}>
-              {loading ? <Skeleton width={400} /> : advertisement?.name}
-            </h1>
-            <p className={styles.price}>
-              {loading ? <Skeleton width={200} /> : `${advertisement?.price} ₽`}
-            </p>
+            {isEditing ? (
+              <>
+                <input
+                  className={cn(styles.input, styles.inputTitle)}
+                  type="text"
+                  defaultValue={selectedAdvertisement?.name}
+                  onChange={(e) => handleFieldChange('name', e.target.value)}
+                  placeholder="Название"
+                />
+                <input
+                  className={cn(styles.inputPrice, styles.input)}
+                  type="number"
+                  defaultValue={selectedAdvertisement?.price}
+                  onChange={(e) =>
+                    handleFieldChange('price', Number(e.target.value))
+                  }
+                  placeholder="Цена"
+                />
+              </>
+            ) : (
+              <>
+                <h1 className={styles.title}>
+                  {loading ? (
+                    <Skeleton width={400} />
+                  ) : (
+                    selectedAdvertisement?.name
+                  )}
+                </h1>
+                <p className={styles.price}>
+                  {loading ? (
+                    <Skeleton width={200} />
+                  ) : (
+                    `${selectedAdvertisement?.price} ₽`
+                  )}
+                </p>
+              </>
+            )}
           </div>
           <div className={styles.bottom}>
             <p className={styles.date}>
               {loading ? (
                 <Skeleton width={150} />
               ) : (
-                `Создан: ${formatTime(advertisement?.createdAt!)}`
+                `Создан: ${formatTime(selectedAdvertisement?.createdAt!)}`
               )}
             </p>
-            {loading ? (
-              <Skeleton width={141} height={38} borderRadius={10} />
+            {isEditing ? (
+              <div className={styles.buttonBox}>
+                <button
+                  onClick={handleSave}
+                  className={cn(styles.button, styles.saveButton)}
+                >
+                  Сохранить
+                </button>
+                <button
+                  onClick={() => setIsEditing(false)}
+                  className={cn(styles.button, styles.cancelButton)}
+                >
+                  Отмена
+                </button>
+              </div>
             ) : (
-              <button className={styles.editButton}>Редактировать</button>
+              <button
+                onClick={() => setIsEditing(true)}
+                className={styles.button}
+              >
+                Редактировать
+              </button>
             )}
           </div>
         </div>
@@ -77,21 +135,40 @@ const AdvertisementDetail: React.FC = () => {
           ) : (
             <img
               className={styles.image}
-              src={advertisement?.imageUrl || 'https://via.placeholder.com/450'}
+              src={
+                selectedAdvertisement?.imageUrl ||
+                'https://via.placeholder.com/450'
+              }
               alt="Product Image"
             />
           )}
           <div className={styles.sectionBox}>
-            <p className={styles.descriptionTitle}>
-              {loading ? <Skeleton width={200} /> : 'Описание'}
-            </p>
-            <p>
-              {loading ? (
-                <Skeleton width={400} count={16} />
-              ) : (
-                advertisement?.description
-              )}
-            </p>
+            {isEditing ? (
+              <>
+                <p className={styles.descriptionTitle}>Описание</p>
+                <textarea
+                  className={styles.textarea}
+                  defaultValue={selectedAdvertisement?.description}
+                  onChange={(e) =>
+                    handleFieldChange('description', e.target.value)
+                  }
+                  placeholder="Описание"
+                />
+              </>
+            ) : (
+              <>
+                <p className={styles.descriptionTitle}>
+                  {loading ? <Skeleton width={200} /> : 'Описание'}
+                </p>
+                <p>
+                  {loading ? (
+                    <Skeleton width={400} count={16} />
+                  ) : (
+                    selectedAdvertisement?.description
+                  )}
+                </p>
+              </>
+            )}
           </div>
         </div>
       </div>

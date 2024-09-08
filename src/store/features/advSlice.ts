@@ -2,7 +2,9 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Advertisment, PaginatedResponse } from '../../../types.ts';
 import {
   createAdvertisement,
+  fetchAdvertisementById,
   fetchAdvertisements,
+  updateAdvertisement,
 } from '../../api/advertisements.ts';
 
 export const getAllAdvertisements = createAsyncThunk<
@@ -15,6 +17,19 @@ export const getAllAdvertisements = createAsyncThunk<
     return response;
   } catch (error) {
     return thunkAPI.rejectWithValue('Ошибка при загрузке объявлений');
+  }
+});
+
+export const getAdvertisementById = createAsyncThunk<
+  Advertisment,
+  string,
+  { rejectValue: string }
+>('advertisements/getAdvertisementById', async (id, thunkAPI) => {
+  try {
+    const response = await fetchAdvertisementById(id);
+    return response;
+  } catch (error) {
+    return thunkAPI.rejectWithValue('Ошибка при загрузке объявления');
   }
 });
 
@@ -31,8 +46,25 @@ export const addNewAdvertisement = createAsyncThunk<
   }
 });
 
+export const updateExistingAdvertisement = createAsyncThunk<
+  Advertisment,
+  { id: string; data: Partial<Advertisment> },
+  { rejectValue: string }
+>(
+  'advertisements/updateExistingAdvertisement',
+  async ({ id, data }, thunkAPI) => {
+    try {
+      const response = await updateAdvertisement(id, data);
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue('Ошибка при обновлении объявления');
+    }
+  },
+);
+
 type AdvertisementsStateType = {
   advertisements: Advertisment[];
+  selectedAdvertisement: Advertisment | null;
   loading: boolean;
   error: null | string;
   pagination: {
@@ -48,6 +80,7 @@ type AdvertisementsStateType = {
 
 const initialState: AdvertisementsStateType = {
   advertisements: [],
+  selectedAdvertisement: null,
   loading: false,
   error: null,
   keyword: '',
@@ -98,6 +131,36 @@ const advertisementsSlice = createSlice({
       .addCase(addNewAdvertisement.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || 'Ошибка при создании объявления';
+      })
+      .addCase(getAdvertisementById.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getAdvertisementById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.selectedAdvertisement = action.payload;
+      })
+      .addCase(getAdvertisementById.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'Неизвестная ошибка';
+      })
+      .addCase(updateExistingAdvertisement.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateExistingAdvertisement.fulfilled, (state, action) => {
+        state.loading = false;
+        const index = state.advertisements.findIndex(
+          (ad) => ad.id === action.payload.id,
+        );
+        if (index !== -1) {
+          state.advertisements[index] = action.payload;
+        }
+        state.selectedAdvertisement = action.payload;
+      })
+      .addCase(updateExistingAdvertisement.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'Ошибка при обновлении объявления';
       });
   },
 });
