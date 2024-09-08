@@ -8,6 +8,8 @@ import Pagination from '../Pagination/Pagination.tsx';
 import { useAppDispatch, useAppSelector } from '../../store/store.ts';
 import { getAllAdvertisements } from '../../store/features/advSlice.ts';
 import { useFilteredAdvertisements } from '../../hooks/useFilteredAdvertisements.ts';
+import AddNewAdv from '../AddNewAdv/AddNewAdv.tsx';
+import CreateAdvModal from '../CreateAdvModal/CreateAdvModal.tsx';
 
 const Listing: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -20,6 +22,8 @@ const Listing: React.FC = () => {
   const [adsPerPage, setAdsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
 
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
   useEffect(() => {
     dispatch(getAllAdvertisements({ page: currentPage, limit: adsPerPage }));
   }, [dispatch, currentPage, adsPerPage]);
@@ -27,6 +31,10 @@ const Listing: React.FC = () => {
   return (
     <>
       <Controls adsPerPage={adsPerPage} setAdsPerPage={setAdsPerPage} />
+      <AddNewAdv openModal={() => setModalIsOpen(true)} />
+      {modalIsOpen && (
+        <CreateAdvModal closeModal={() => setModalIsOpen(false)} />
+      )}
       <div className={styles.listing}>
         {error && (
           <div className={styles.error}>

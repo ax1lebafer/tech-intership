@@ -1,6 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Advertisment, PaginatedResponse } from '../../../types.ts';
-import { fetchAdvertisements } from '../../api/advertisements.ts';
+import {
+  createAdvertisement,
+  fetchAdvertisements,
+} from '../../api/advertisements.ts';
 
 export const getAllAdvertisements = createAsyncThunk<
   PaginatedResponse<Advertisment>,
@@ -12,6 +15,19 @@ export const getAllAdvertisements = createAsyncThunk<
     return response;
   } catch (error) {
     return thunkAPI.rejectWithValue('Ошибка при загрузке объявлений');
+  }
+});
+
+export const addNewAdvertisement = createAsyncThunk<
+  Advertisment,
+  Advertisment,
+  { rejectValue: string }
+>('advertisements/addNewAdvertisement', async (newAd, thunkAPI) => {
+  try {
+    const response = await createAdvertisement(newAd);
+    return response;
+  } catch (error) {
+    return thunkAPI.rejectWithValue('Ошибка при создании объявления');
   }
 });
 
@@ -70,6 +86,18 @@ const advertisementsSlice = createSlice({
       .addCase(getAllAdvertisements.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || 'Неизвестная ошибка';
+      })
+      .addCase(addNewAdvertisement.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(addNewAdvertisement.fulfilled, (state, action) => {
+        state.loading = false;
+        state.advertisements.push(action.payload);
+      })
+      .addCase(addNewAdvertisement.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'Ошибка при создании объявления';
       });
   },
 });

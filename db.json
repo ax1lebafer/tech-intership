@@ -176,6 +176,16 @@
       "views": 357498,
       "likes": 246697,
       "imageUrl": "https://avatars.mds.yandex.net/i?id=d40c56570d78d0a84e90052f0b7446246497e557-12475602-images-thumbs&n=13"
+    },
+    {
+      "id": "1725808884752",
+      "name": "Санки",
+      "description": "",
+      "price": 2000,
+      "imageUrl": "",
+      "createdAt": "2024-09-08T15:21:24.752Z",
+      "views": 0,
+      "likes": 0
     }
   ],
   "orders": [

@@ -42,3 +42,21 @@ export async function fetchAdvertisementById(
 
   return await response.json();
 }
+
+export async function createAdvertisement(
+  newAd: Advertisment,
+): Promise<Advertisment> {
+  const response = await fetch(HOST_GET, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+    body: JSON.stringify(newAd),
+  });
+
+  if (!response.ok) {
+    throw new Error('Ошибка при создании объявления');
+  }
+
+  return response.json();
+}
