@@ -1,0 +1,16 @@
+.controls {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 30px;
+}
+
+.controls label {
+    margin-right: 10px;
+}
+
+.controls select {
+    width: 50px;
+    border-radius: 10px;
+    outline: none;
+    text-align: center;
+}

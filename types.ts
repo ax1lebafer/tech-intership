@@ -54,3 +54,17 @@ export type Image = {
   /* Название. */
   name: string;
 };
+
+export type PaginationInfo = {
+  first: number;
+  prev: number | null;
+  next: number | null;
+  last: number;
+  pages: number;
+  items: number;
+};
+
+export type PaginatedResponse<T> = {
+  data: T[];
+  pagination: PaginationInfo;
+};
