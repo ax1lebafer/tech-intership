@@ -7,12 +7,15 @@ import Controls from '../Controls/Controls.tsx';
 import Pagination from '../Pagination/Pagination.tsx';
 import { useAppDispatch, useAppSelector } from '../../store/store.ts';
 import { getAllAdvertisements } from '../../store/features/advSlice.ts';
+import { useFilteredAdvertisements } from '../../hooks/useFilteredAdvertisements.ts';
 
 const Listing: React.FC = () => {
   const dispatch = useAppDispatch();
   const { advertisements, error, pagination, loading } = useAppSelector(
     (state) => state.advertisement,
   );
+
+  const filteredAdvertisements = useFilteredAdvertisements(advertisements);
 
   const [adsPerPage, setAdsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,12 +43,12 @@ const Listing: React.FC = () => {
             style={{ boxSizing: 'border-box' }}
           />
         )}
-        {!loading && (
-          <>
-            {advertisements.map((ad) => (
-              <AdvertisementCard key={ad.id} advertisement={ad} />
-            ))}
-          </>
+        {!loading && filteredAdvertisements.length > 0 ? (
+          filteredAdvertisements.map((ad) => (
+            <AdvertisementCard key={ad.id} advertisement={ad} />
+          ))
+        ) : (
+          <div>Нет объявлений, соответствующих вашему запросу.</div>
         )}
       </div>
       <Pagination

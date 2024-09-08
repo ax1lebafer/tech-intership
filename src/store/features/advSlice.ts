@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Advertisment, PaginatedResponse } from '../../../types.ts';
 import { fetchAdvertisements } from '../../api/advertisements.ts';
 
@@ -27,12 +27,14 @@ type AdvertisementsStateType = {
     pages: number;
     items: number;
   };
+  keyword: string;
 };
 
 const initialState: AdvertisementsStateType = {
   advertisements: [],
   loading: false,
   error: null,
+  keyword: '',
   pagination: {
     first: 1,
     prev: null,
@@ -46,7 +48,14 @@ const initialState: AdvertisementsStateType = {
 const advertisementsSlice = createSlice({
   name: 'advertisements',
   initialState,
-  reducers: {},
+  reducers: {
+    setKeyword: (state, action: PayloadAction<string>) => {
+      state.keyword = action.payload;
+    },
+    resetKeyword: (state) => {
+      state.keyword = '';
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getAllAdvertisements.pending, (state) => {
@@ -64,5 +73,7 @@ const advertisementsSlice = createSlice({
       });
   },
 });
+
+export const { setKeyword, resetKeyword } = advertisementsSlice.actions;
 
 export const advertisementsReducer = advertisementsSlice.reducer;
