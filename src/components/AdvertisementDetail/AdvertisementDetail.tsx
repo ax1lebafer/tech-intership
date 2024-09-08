@@ -1,12 +1,13 @@
 import * as React from 'react';
 import styles from './AdvertisementDetail.module.css';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { formatTime } from '../../utils/formatTime.ts';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { useAppDispatch, useAppSelector } from '../../store/store.ts';
 import {
+  deleteExistingAdvertisement,
   getAdvertisementById,
   updateExistingAdvertisement,
 } from '../../store/features/advSlice.ts';
@@ -15,6 +16,7 @@ import cn from 'classnames';
 
 const AdvertisementDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
   const { selectedAdvertisement, loading, error } = useAppSelector(
@@ -42,6 +44,18 @@ const AdvertisementDetail: React.FC = () => {
       dispatch(updateExistingAdvertisement({ id, data: editedFields }));
       setIsEditing(false);
       setEditedFields({});
+    }
+  };
+
+  const handleDelete = () => {
+    if (id) {
+      dispatch(deleteExistingAdvertisement(id))
+        .then(() => {
+          navigate('/advertisements'); // После удаления перенаправляем на список объявлений
+        })
+        .catch((error) => {
+          console.error('Ошибка при удалении:', error);
+        });
     }
   };
 
@@ -105,19 +119,29 @@ const AdvertisementDetail: React.FC = () => {
               )}
             </p>
             {isEditing ? (
-              <div className={styles.buttonBox}>
-                <button
-                  onClick={handleSave}
-                  className={cn(styles.button, styles.saveButton)}
-                >
-                  Сохранить
-                </button>
-                <button
-                  onClick={() => setIsEditing(false)}
-                  className={cn(styles.button, styles.cancelButton)}
-                >
-                  Отмена
-                </button>
+              <div className={styles.buttonWrapper}>
+                <div className={styles.buttonBox}>
+                  <button
+                    onClick={handleSave}
+                    className={cn(styles.button, styles.saveButton)}
+                  >
+                    Сохранить
+                  </button>
+                  <button
+                    onClick={() => setIsEditing(false)}
+                    className={cn(styles.button, styles.cancelButton)}
+                  >
+                    Отмена
+                  </button>
+                </div>
+                <div>
+                  <button
+                    className={cn(styles.button, styles.deleteButton)}
+                    onClick={handleDelete}
+                  >
+                    Удалить
+                  </button>
+                </div>
               </div>
             ) : (
               <button
@@ -132,6 +156,18 @@ const AdvertisementDetail: React.FC = () => {
         <div className={styles.section}>
           {loading ? (
             <Skeleton width={450} height={450} borderRadius={20} />
+          ) : isEditing ? (
+            <div className={styles.editImage}>
+              <p className={styles.descriptionTitle}>URL изображения</p>
+              <textarea
+                className={styles.textarea}
+                value={
+                  editedFields.imageUrl || selectedAdvertisement?.imageUrl || ''
+                }
+                onChange={(e) => handleFieldChange('imageUrl', e.target.value)}
+                placeholder="Введите URL изображения"
+              />
+            </div>
           ) : (
             <img
               className={styles.image}

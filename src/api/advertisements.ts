@@ -4,13 +4,13 @@ import {
   PaginationInfo,
 } from '../../types.ts';
 
-const HOST_GET = 'http://localhost:8000/advertisements';
+const API_URL = 'http://localhost:8000/advertisements';
 
 export async function fetchAdvertisements(
   page: number,
   limit: number,
 ): Promise<PaginatedResponse<Advertisment>> {
-  const response = await fetch(`${HOST_GET}?_page=${page}&_per_page=${limit}`);
+  const response = await fetch(`${API_URL}?_page=${page}&_per_page=${limit}`);
 
   if (!response.ok) {
     throw new Error('Ошибка при загрузке объявлений');
@@ -34,7 +34,7 @@ export async function fetchAdvertisements(
 export async function fetchAdvertisementById(
   id: string,
 ): Promise<Advertisment> {
-  const response = await fetch(`${HOST_GET}/${id}`);
+  const response = await fetch(`${API_URL}/${id}`);
 
   if (!response.ok) {
     throw new Error('Ошибка при загрузке объявления');
@@ -46,7 +46,7 @@ export async function fetchAdvertisementById(
 export async function createAdvertisement(
   newAd: Advertisment,
 ): Promise<Advertisment> {
-  const response = await fetch(HOST_GET, {
+  const response = await fetch(API_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
@@ -65,7 +65,7 @@ export async function updateAdvertisement(
   id: string,
   updatedData: Partial<Advertisment>,
 ): Promise<Advertisment> {
-  const response = await fetch(`${HOST_GET}/${id}`, {
+  const response = await fetch(`${API_URL}/${id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
@@ -78,4 +78,14 @@ export async function updateAdvertisement(
   }
 
   return response.json();
+}
+
+export async function deleteAdvertisement(id: string): Promise<void> {
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: 'DELETE',
+  });
+
+  if (!response.ok) {
+    throw new Error('Ошибка при удалении объявления');
+  }
 }

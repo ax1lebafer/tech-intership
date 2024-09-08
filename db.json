@@ -38,7 +38,7 @@
       "createdAt": "2024-07-12T20:16:55.351Z",
       "views": 2000000,
       "likes": 2,
-      "imageUrl": "https://avatars.mds.yandex.net/i?id=9f1b31939ea97d0c7363c6b12897f7b4bddd6868-3752383-images-thumbs&n=13"
+      "imageUrl": "https://avatars.mds.yandex.net/i?id=2f90b07684d692e9bbd3a708fbb569e3bced903f-4012107-images-thumbs&n=13"
     },
     {
       "id": "5",
@@ -177,16 +177,6 @@
       "views": 357498,
       "likes": 246697,
       "imageUrl": "https://avatars.mds.yandex.net/i?id=d40c56570d78d0a84e90052f0b7446246497e557-12475602-images-thumbs&n=13"
-    },
-    {
-      "id": "1725808884752",
-      "name": "Сани",
-      "description": "Готовь сани летом, а телегу зимой ",
-      "price": 2000,
-      "imageUrl": "",
-      "createdAt": "2024-09-08T15:21:24.752Z",
-      "views": 0,
-      "likes": 0
     }
   ],
   "orders": [

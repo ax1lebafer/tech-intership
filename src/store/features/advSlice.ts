@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Advertisment, PaginatedResponse } from '../../../types.ts';
 import {
   createAdvertisement,
+  deleteAdvertisement,
   fetchAdvertisementById,
   fetchAdvertisements,
   updateAdvertisement,
@@ -61,6 +62,18 @@ export const updateExistingAdvertisement = createAsyncThunk<
     }
   },
 );
+
+export const deleteExistingAdvertisement = createAsyncThunk<
+  void,
+  string,
+  { rejectValue: string }
+>('advertisements/deleteExistingAdvertisement', async (id, thunkAPI) => {
+  try {
+    await deleteAdvertisement(id);
+  } catch (error) {
+    return thunkAPI.rejectWithValue('Ошибка при удалении объявления');
+  }
+});
 
 type AdvertisementsStateType = {
   advertisements: Advertisment[];
@@ -161,6 +174,17 @@ const advertisementsSlice = createSlice({
       .addCase(updateExistingAdvertisement.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || 'Ошибка при обновлении объявления';
+      })
+      .addCase(deleteExistingAdvertisement.fulfilled, (state, action) => {
+        state.loading = false;
+        state.advertisements = state.advertisements.filter(
+          (ad) => ad.id !== action.meta.arg,
+        );
+        state.selectedAdvertisement = null;
+      })
+      .addCase(deleteExistingAdvertisement.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'Ошибка при удалении объявления';
       });
   },
 });
