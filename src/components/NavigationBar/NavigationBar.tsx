@@ -13,6 +13,8 @@ const NavigationBar: React.FC = () => {
     location.pathname.includes('/advertisements/') &&
     location.pathname.split('/').length === 3;
 
+  const isOrdersPage = location.pathname.startsWith('/orders');
+
   return (
     <header className={styles.header}>
       <Link
@@ -22,7 +24,7 @@ const NavigationBar: React.FC = () => {
       >
         BY AX1LEBAFER
       </Link>
-      {!isAdvertisementDetailPage && <Search />}
+      {!isAdvertisementDetailPage && !isOrdersPage && <Search />}
       <nav className={styles.navbar}>
         <Link
           className={styles.link}
@@ -33,7 +35,7 @@ const NavigationBar: React.FC = () => {
         </Link>
         <Link
           className={styles.link}
-          to="/"
+          to={'/orders'}
           onClick={() => dispatch(resetKeyword())}
         >
           Заказы

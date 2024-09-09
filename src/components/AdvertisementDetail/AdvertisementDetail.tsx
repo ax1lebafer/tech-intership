@@ -51,7 +51,7 @@ const AdvertisementDetail: React.FC = () => {
     if (id) {
       dispatch(deleteExistingAdvertisement(id))
         .then(() => {
-          navigate('/advertisements'); // После удаления перенаправляем на список объявлений
+          navigate('/advertisements');
         })
         .catch((error) => {
           console.error('Ошибка при удалении:', error);

@@ -1,0 +1,8 @@
+.title {
+    text-align: center;
+}
+
+.ordersPage {
+    display: flex;
+    flex-direction: column;
+}

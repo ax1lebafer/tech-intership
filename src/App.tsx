@@ -9,6 +9,7 @@ import NavigationBar from './components/NavigationBar/NavigationBar.tsx';
 import ListingPage from './pages/ListingPage.tsx';
 import AdvertisementDetailPage from './pages/AdvertisementDetailPage.tsx';
 import Footer from './components/Footer/Footer.tsx';
+import OrdersPage from './pages/OrderPage/OrdersPage.tsx';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           path="/advertisements/:id"
           element={<AdvertisementDetailPage />}
         />
+        <Route path="/orders" element={<OrdersPage />} />
       </Routes>
       <Footer />
     </Router>

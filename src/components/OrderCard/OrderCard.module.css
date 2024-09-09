@@ -1,0 +1,54 @@
+.orderCard {
+    background-color: #7899e2;
+    border-radius: 20px;
+    padding: 20px;
+    min-width: 300px;
+
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.orderCard p {
+    width: 101px;
+    display: flex;
+    justify-content: center;
+}
+
+.infoBox {
+    width: 165px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.buttonBox {
+    display: flex;
+    gap: 34px;
+    margin-left: 40px;
+}
+
+.buttonBox button {
+    width: 150px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.buttonBox button:nth-child(1):hover {
+    background-color: #c5c4c4;
+    transition: all .5s;
+}
+
+.completeButton {
+    background-color: #ea5757;
+}
+
+.completeButton:hover {
+    background-color: #ae2a2a;
+    color: white;
+    transition: all .5s;
+}
