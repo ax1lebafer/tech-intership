@@ -32,7 +32,7 @@ const OrdersPage: React.FC = () => {
   return (
     <div className={styles.ordersPage}>
       <h1 className={styles.title}>
-        {loading ? <Skeleton width={300} height={39} /> : 'Страница заказов'}
+        {loading ? <Skeleton width={150} height={39} /> : 'Заказы'}
       </h1>
 
       <OrderFilters
@@ -57,12 +57,6 @@ const OrdersPage: React.FC = () => {
           />
         </div>
       )}
-
-      {/*{!filteredOrders && (*/}
-      {/*  <div>*/}
-      {/*    <p>Нет подходящих заказов</p>*/}
-      {/*  </div>*/}
-      {/*)}*/}
 
       {!loading && !error && <OrdersList orders={filteredOrders} />}
     </div>

@@ -19,3 +19,14 @@
     flex-wrap: wrap;
     justify-content: center;
 }
+
+.emptyBox {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.emptyMessage {
+    font-size: 32px;
+    font-weight: 700;
+}

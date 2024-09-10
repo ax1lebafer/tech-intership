@@ -1,5 +1,7 @@
 import * as React from 'react';
 import styles from './Pagination.module.css';
+import { useAppSelector } from '../../store/store.ts';
+import Skeleton from 'react-loading-skeleton';
 
 type PaginationProps = {
   currentPage: number;
@@ -16,23 +18,31 @@ const Pagination: React.FC<PaginationProps> = ({
   hasNext,
   hasPrev,
 }) => {
+  const { loading } = useAppSelector((state) => state.advertisement);
+
   return (
     <div className={styles.pagination}>
-      <button
-        onClick={() => setCurrentPage(currentPage - 1)}
-        disabled={!hasPrev}
-      >
-        Предыдущая
-      </button>
-      <span>
-        Страница {currentPage} из {totalPages}
-      </span>
-      <button
-        onClick={() => setCurrentPage(currentPage + 1)}
-        disabled={!hasNext}
-      >
-        Следующая
-      </button>
+      {loading ? (
+        <Skeleton width={400} height={39} />
+      ) : (
+        <>
+          <button
+            onClick={() => setCurrentPage(currentPage - 1)}
+            disabled={!hasPrev}
+          >
+            Предыдущая
+          </button>
+          <span>
+            Страница {currentPage} из {totalPages}
+          </span>
+          <button
+            onClick={() => setCurrentPage(currentPage + 1)}
+            disabled={!hasNext}
+          >
+            Следующая
+          </button>
+        </>
+      )}
     </div>
   );
 };
