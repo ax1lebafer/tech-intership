@@ -20,6 +20,12 @@ const OrdersList: React.FC<OrdersListProps> = ({ orders }) => {
       {orders.map((order) => (
         <OrderCard key={order.id} order={order} />
       ))}
+
+      {!orders.length && (
+        <div className={styles.emptyBox}>
+          <p className={styles.emptyMessage}>Нет подходящих заказов</p>
+        </div>
+      )}
     </div>
   );
 };

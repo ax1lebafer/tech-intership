@@ -14,8 +14,7 @@ export const getAllAdvertisements = createAsyncThunk<
   { rejectValue: string }
 >('advertisements/getAllAdvertisements', async ({ page, limit }, thunkAPI) => {
   try {
-    const response = await fetchAdvertisements(page, limit);
-    return response;
+    return await fetchAdvertisements(page, limit);
   } catch (error) {
     return thunkAPI.rejectWithValue('Ошибка при загрузке объявлений');
   }
@@ -27,8 +26,7 @@ export const getAdvertisementById = createAsyncThunk<
   { rejectValue: string }
 >('advertisements/getAdvertisementById', async (id, thunkAPI) => {
   try {
-    const response = await fetchAdvertisementById(id);
-    return response;
+    return await fetchAdvertisementById(id);
   } catch (error) {
     return thunkAPI.rejectWithValue('Ошибка при загрузке объявления');
   }
@@ -40,8 +38,7 @@ export const addNewAdvertisement = createAsyncThunk<
   { rejectValue: string }
 >('advertisements/addNewAdvertisement', async (newAd, thunkAPI) => {
   try {
-    const response = await createAdvertisement(newAd);
-    return response;
+    return await createAdvertisement(newAd);
   } catch (error) {
     return thunkAPI.rejectWithValue('Ошибка при создании объявления');
   }
@@ -55,8 +52,7 @@ export const updateExistingAdvertisement = createAsyncThunk<
   'advertisements/updateExistingAdvertisement',
   async ({ id, data }, thunkAPI) => {
     try {
-      const response = await updateAdvertisement(id, data);
-      return response;
+      return await updateAdvertisement(id, data);
     } catch (error) {
       return thunkAPI.rejectWithValue('Ошибка при обновлении объявления');
     }

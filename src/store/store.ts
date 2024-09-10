@@ -6,11 +6,13 @@ import {
   useSelector,
   useStore,
 } from 'react-redux';
+import { ordersReducer } from './features/ordersSlice.ts';
 
 export const makeStore = () => {
   return configureStore({
     reducer: combineReducers({
       advertisement: advertisementsReducer,
+      orders: ordersReducer,
     }),
   });
 };

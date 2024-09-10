@@ -13,6 +13,7 @@
     width: 101px;
     display: flex;
     justify-content: center;
+    text-align: center;
 }
 
 .infoBox {

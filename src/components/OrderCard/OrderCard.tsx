@@ -54,10 +54,9 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
         <button onClick={() => setIsModalOpen(true)}>
           Показать все товары
         </button>
-        {order.status !== OrderStatus.Archived &&
-          order.status !== OrderStatus.Received && (
-            <button className={styles.completeButton}>Завершить заказ</button>
-          )}
+        {order.status === OrderStatus.Received && (
+          <button className={styles.completeButton}>Завершить заказ</button>
+        )}
       </div>
 
       {isModalOpen && (

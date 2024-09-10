@@ -1,62 +1,70 @@
 import * as React from 'react';
-// import OrderFilters from '../OrderFilters/OrderFilters';
-// import OrdersList from '../OrdersList/OrdersList';
 import styles from './OrdersPage.module.css';
-import { fetchOrders } from '../../api/orders.ts';
-import { Order } from '../../../types.ts';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import OrderFilters from '../../components/OrderFilters/OrderFilters.tsx';
 import OrdersList from '../../components/OrdersList/OrdersList.tsx';
+import { useAppDispatch, useAppSelector } from '../../store/store.ts';
+import {
+  getAllOrders,
+  setSortByTotal,
+  setStatusFilter,
+} from '../../store/features/ordersSlice.ts';
+import Skeleton from 'react-loading-skeleton';
 
 const OrdersPage: React.FC = () => {
-  const [orders, setOrders] = useState<Order[]>([]);
-  const [filteredOrders, setFilteredOrders] = useState<Order[]>([]);
-  const [statusFilter, setStatusFilter] = useState<number | null>(null);
-  const [sortByTotal, setSortByTotal] = useState<'asc' | 'desc' | null>(null);
+  const dispatch = useAppDispatch();
+  const { filteredOrders, loading, error } = useAppSelector(
+    (state) => state.orders,
+  );
 
   useEffect(() => {
-    const getOrders = async () => {
-      try {
-        const data = await fetchOrders();
-        setOrders(data);
-        setFilteredOrders(data);
-      } catch (error) {
-        console.error('Ошибка при загрузке заказов', error);
-      }
-    };
+    dispatch(getAllOrders());
+  }, [dispatch]);
 
-    getOrders();
-  }, []);
+  const handleStatusChange = (status: number | null) => {
+    dispatch(setStatusFilter(status));
+  };
 
-  useEffect(() => {
-    let updatedOrders = [...orders];
-    if (statusFilter !== null) {
-      updatedOrders = updatedOrders.filter(
-        (order) => order.status === statusFilter,
-      );
-    }
-    setFilteredOrders(updatedOrders);
-  }, [statusFilter, orders]);
-
-  useEffect(() => {
-    if (sortByTotal) {
-      const sortedOrders = [...filteredOrders].sort((a, b) =>
-        sortByTotal === 'asc' ? a.total - b.total : b.total - a.total,
-      );
-      setFilteredOrders(sortedOrders);
-    }
-  }, [sortByTotal]);
+  const handleSortChange = (sortBy: 'asc' | 'desc' | null) => {
+    dispatch(setSortByTotal(sortBy));
+  };
 
   return (
     <div className={styles.ordersPage}>
-      <h1 className={styles.title}>Страница заказов</h1>
+      <h1 className={styles.title}>
+        {loading ? <Skeleton width={300} height={39} /> : 'Страница заказов'}
+      </h1>
 
       <OrderFilters
-        onStatusChange={setStatusFilter}
-        onSortChange={setSortByTotal}
+        onStatusChange={handleStatusChange}
+        onSortChange={handleSortChange}
       />
 
-      <OrdersList orders={filteredOrders} />
+      {error && (
+        <div className={styles.error}>
+          <p className={styles.errorMessage}>{error}</p>
+        </div>
+      )}
+
+      {loading && (
+        <div className={styles.loader}>
+          <Skeleton height={64} borderRadius={20} />
+          <Skeleton
+            height={88}
+            borderRadius={20}
+            count={10}
+            style={{ marginBottom: '15px' }}
+          />
+        </div>
+      )}
+
+      {/*{!filteredOrders && (*/}
+      {/*  <div>*/}
+      {/*    <p>Нет подходящих заказов</p>*/}
+      {/*  </div>*/}
+      {/*)}*/}
+
+      {!loading && !error && <OrdersList orders={filteredOrders} />}
     </div>
   );
 };
