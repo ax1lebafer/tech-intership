@@ -9,7 +9,7 @@
     align-items: center;
 }
 
-.orderCard p {
+.orderText {
     width: 101px;
     display: flex;
     justify-content: center;

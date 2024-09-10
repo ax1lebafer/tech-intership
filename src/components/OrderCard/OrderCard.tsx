@@ -37,18 +37,18 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
 
   return (
     <div className={styles.orderCard}>
-      <p>Заказ #{order.id}</p>
+      <p className={styles.orderText}>Заказ #{order.id}</p>
       <div className={styles.infoBox}>
-        <p>{formatTime(order.createdAt)}</p>
+        <p className={styles.orderText}>{formatTime(order.createdAt)}</p>
       </div>
       <div className={styles.infoBox}>
-        <p>{statusText(order.status)}</p>
+        <p className={styles.orderText}>{statusText(order.status)}</p>
       </div>
       <div className={styles.infoBox}>
-        <p>{order.total} ₽</p>
+        <p className={styles.orderText}>{order.total} ₽</p>
       </div>
       <div className={styles.infoBox}>
-        <p>{order.items.length}</p>
+        <p className={styles.orderText}>{order.items.length}</p>
       </div>
       <div className={styles.buttonBox}>
         <button onClick={() => setIsModalOpen(true)}>
