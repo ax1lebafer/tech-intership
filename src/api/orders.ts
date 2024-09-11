@@ -11,3 +11,13 @@ export async function fetchOrders(): Promise<Order[]> {
 
   return response.json();
 }
+
+export async function deleteOrder(id: string) {
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: 'DELETE',
+  });
+
+  if (!response.ok) {
+    throw new Error('Ошибка при удалении заказа');
+  }
+}

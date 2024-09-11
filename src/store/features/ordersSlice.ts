@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Order } from '../../../types.ts';
-import { fetchOrders } from '../../api/orders.ts';
+import { deleteOrder, fetchOrders } from '../../api/orders.ts';
 
 export const getAllOrders = createAsyncThunk<
   Order[],
@@ -11,6 +11,18 @@ export const getAllOrders = createAsyncThunk<
     return await fetchOrders();
   } catch (error) {
     return thunkAPI.rejectWithValue('Ошибка при загрузке заказов');
+  }
+});
+
+export const deleteExistingOrder = createAsyncThunk<
+  void,
+  string,
+  { rejectValue: string }
+>('orders/deleteExistingOrder', async (id, thunkAPI) => {
+  try {
+    await deleteOrder(id);
+  } catch (error) {
+    return thunkAPI.rejectWithValue('Ошибка при удалении заказа');
   }
 });
 

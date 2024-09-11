@@ -4,12 +4,15 @@ import styles from './OrderCard.module.css';
 import { formatTime } from '../../utils/formatTime.ts';
 import OrderItemsModal from '../OrderItemsModal/OrderItemsModal';
 import { useState } from 'react';
+import { deleteExistingOrder } from '../../store/features/ordersSlice.ts';
+import { useAppDispatch } from '../../store/store.ts';
 
 type OrderCardProps = {
   order: Order;
 };
 
 const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
+  const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const statusText = (
@@ -35,6 +38,10 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
     }
   };
 
+  const handleCompleteOrder = () => {
+    dispatch(deleteExistingOrder(order.id)); // Удаление заказа
+  };
+
   return (
     <div className={styles.orderCard}>
       <p className={styles.orderText}>Заказ #{order.id}</p>
@@ -55,7 +62,12 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
           Показать все товары
         </button>
         {order.status === OrderStatus.Received && (
-          <button className={styles.completeButton}>Завершить заказ</button>
+          <button
+            className={styles.completeButton}
+            onClick={handleCompleteOrder}
+          >
+            Завершить заказ
+          </button>
         )}
       </div>
 
