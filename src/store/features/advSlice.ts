@@ -16,7 +16,9 @@ export const getAllAdvertisements = createAsyncThunk<
   try {
     return await fetchAdvertisements(page, limit);
   } catch (error) {
-    return thunkAPI.rejectWithValue('Ошибка при загрузке объявлений');
+    return thunkAPI.rejectWithValue(
+      error instanceof Error ? error.message : 'Ошибка при загрузке объявлений',
+    );
   }
 });
 
@@ -28,7 +30,9 @@ export const getAdvertisementById = createAsyncThunk<
   try {
     return await fetchAdvertisementById(id);
   } catch (error) {
-    return thunkAPI.rejectWithValue('Ошибка при загрузке объявления');
+    return thunkAPI.rejectWithValue(
+      error instanceof Error ? error.message : 'Ошибка при загрузке объявления',
+    );
   }
 });
 
@@ -40,7 +44,9 @@ export const addNewAdvertisement = createAsyncThunk<
   try {
     return await createAdvertisement(newAd);
   } catch (error) {
-    return thunkAPI.rejectWithValue('Ошибка при создании объявления');
+    return thunkAPI.rejectWithValue(
+      error instanceof Error ? error.message : 'Ошибка при создании объявления',
+    );
   }
 });
 
@@ -54,7 +60,11 @@ export const updateExistingAdvertisement = createAsyncThunk<
     try {
       return await updateAdvertisement(id, data);
     } catch (error) {
-      return thunkAPI.rejectWithValue('Ошибка при обновлении объявления');
+      return thunkAPI.rejectWithValue(
+        error instanceof Error
+          ? error.message
+          : 'Ошибка редактирования объявления',
+      );
     }
   },
 );
@@ -67,7 +77,9 @@ export const deleteExistingAdvertisement = createAsyncThunk<
   try {
     await deleteAdvertisement(id);
   } catch (error) {
-    return thunkAPI.rejectWithValue('Ошибка при удалении объявления');
+    return thunkAPI.rejectWithValue(
+      error instanceof Error ? error.message : 'Ошибка удаления объявления',
+    );
   }
 });
 

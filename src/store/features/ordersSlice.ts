@@ -10,7 +10,9 @@ export const getAllOrders = createAsyncThunk<
   try {
     return await fetchOrders();
   } catch (error) {
-    return thunkAPI.rejectWithValue('Ошибка при загрузке заказов');
+    return thunkAPI.rejectWithValue(
+      error instanceof Error ? error.message : 'Ошибка при загрузке заказов',
+    );
   }
 });
 
@@ -22,7 +24,9 @@ export const deleteExistingOrder = createAsyncThunk<
   try {
     await deleteOrder(id);
   } catch (error) {
-    return thunkAPI.rejectWithValue('Ошибка при удалении заказа');
+    return thunkAPI.rejectWithValue(
+      error instanceof Error ? error.message : 'Ошибка при удалении заказа',
+    );
   }
 });
 
