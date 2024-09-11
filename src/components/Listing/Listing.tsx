@@ -6,11 +6,12 @@ import { useAppSelector } from '../../store/store.ts';
 import { useFilteredAdvertisements } from '../../hooks/useFilteredAdvertisements.ts';
 
 const Listing: React.FC = () => {
-  const { error, loading, advertisements } = useAppSelector(
-    (state) => state.advertisement,
-  );
+  const { error, loading, advertisements, keyword, allAdvertisements } =
+    useAppSelector((state) => state.advertisement);
 
-  const filteredAdvertisements = useFilteredAdvertisements(advertisements);
+  const filteredAdvertisements = useFilteredAdvertisements(
+    keyword ? allAdvertisements : advertisements,
+  );
 
   return (
     <div className={styles.listing}>

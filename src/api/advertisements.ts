@@ -6,6 +6,16 @@ import {
 
 const API_URL = 'http://localhost:8000/advertisements';
 
+export async function fetchAllAdvertisements(): Promise<Advertisment[]> {
+  const response = await fetch(API_URL);
+
+  if (!response.ok) {
+    throw new Error('Ошибка при загрузке объявлений');
+  }
+
+  return response.json();
+}
+
 export async function fetchAdvertisements(
   page: number,
   limit: number,

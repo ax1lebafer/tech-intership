@@ -5,8 +5,28 @@ import {
   deleteAdvertisement,
   fetchAdvertisementById,
   fetchAdvertisements,
+  fetchAllAdvertisements,
   updateAdvertisement,
 } from '../../api/advertisements.ts';
+
+export const getAllAdvertisementsWithoutPagination = createAsyncThunk<
+  Advertisment[],
+  void,
+  { rejectValue: string }
+>(
+  'advertisements/getAllAdvertisementsWithoutPagination',
+  async (_, thunkAPI) => {
+    try {
+      return await fetchAllAdvertisements();
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error instanceof Error
+          ? error.message
+          : 'Ошибка при загрузке объявлений',
+      );
+    }
+  },
+);
 
 export const getAllAdvertisements = createAsyncThunk<
   PaginatedResponse<Advertisment>,
@@ -84,6 +104,7 @@ export const deleteExistingAdvertisement = createAsyncThunk<
 });
 
 type AdvertisementsStateType = {
+  allAdvertisements: Advertisment[];
   advertisements: Advertisment[];
   selectedAdvertisement: Advertisment | null;
   loading: boolean;
@@ -100,6 +121,7 @@ type AdvertisementsStateType = {
 };
 
 const initialState: AdvertisementsStateType = {
+  allAdvertisements: [],
   advertisements: [],
   selectedAdvertisement: null,
   loading: false,
@@ -128,6 +150,24 @@ const advertisementsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(getAllAdvertisementsWithoutPagination.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(
+        getAllAdvertisementsWithoutPagination.fulfilled,
+        (state, action: PayloadAction<Advertisment[]>) => {
+          state.loading = false;
+          state.allAdvertisements = action.payload;
+        },
+      )
+      .addCase(
+        getAllAdvertisementsWithoutPagination.rejected,
+        (state, action) => {
+          state.error = action.payload || 'Неизвестная ошибка';
+          state.loading = false;
+        },
+      )
       .addCase(getAllAdvertisements.pending, (state) => {
         state.loading = true;
         state.error = null;

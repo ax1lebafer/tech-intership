@@ -2,7 +2,10 @@ import * as React from 'react';
 import styles from './ListingPage.module.css';
 import { useAppDispatch, useAppSelector } from '../../store/store.ts';
 import { useEffect, useState } from 'react';
-import { getAllAdvertisements } from '../../store/features/advSlice.ts';
+import {
+  getAllAdvertisements,
+  getAllAdvertisementsWithoutPagination,
+} from '../../store/features/advSlice.ts';
 import Controls from '../../components/Controls/Controls.tsx';
 import AddNewAdv from '../../components/AddNewAdv/AddNewAdv.tsx';
 import CreateAdvModal from '../../components/CreateAdvModal/CreateAdvModal.tsx';
@@ -22,6 +25,7 @@ const ListingPage: React.FC = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   useEffect(() => {
+    dispatch(getAllAdvertisementsWithoutPagination());
     dispatch(getAllAdvertisements({ page: currentPage, limit: adsPerPage }));
   }, [dispatch, currentPage, adsPerPage]);
 
