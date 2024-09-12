@@ -1,50 +1,65 @@
-# React + TypeScript + Vite
+# Личный кабинет продавца маркетплейса
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### SPA состоит из:
+- Страницы объявления
+- Страницы всех объявлений
+- Страницы заказов
+- Панели навигации
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Проект разработан со следующим стеком технологий:
+- React.js
+- TypeScript
+- Redux Toolkit
+- CSS Module
+- React Skeleton
+- ESLint
 
-## Expanding the ESLint configuration
+## Перед запуском проекта:
+- Установить зависимости ```npm install```
+- Запустить сервер ```npm run server```
+- Запустить проект ```npm run dev```
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Реализованные функциональные требования:
+### На странице всех объявлений:
+1. Отображается список всех объявлений продавца
+2. Реализована пагинация показа объявлений
+3. Реализован выбор количества объявлений для показа на странице (по умолчанию должно быть 10)
+4. Реализован поиск по названию объявления
+5. Можно перейти на страницу объявления (по клику на карточку)
+6. В карточке объявления есть следующая информация о нем:
+   - Картинка
+   - Название;
+   - Стоимость;
+   - Количество просмотров;
+   - Количество лайков;
+7. Есть возможность создавать новые объявления (Модальное окно с input):
+   - Картинка (текстовое поле для ввода URL);
+   - Название (текстовое поле);
+   - Описание (текстовое поле)
+   - Стоимость (числовое поле);
 
-- Configure the top-level `parserOptions` property like this:
+### На странице объявления:
+1. Есть возможность просмотра объявления
+2. В редактировании объявления есть возможность:
+   - Менять картинку
+   - Менять название
+   - Менять цену
+   - Менять описание
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### На странице заказов:
+1. Отображается список заказов с фильтрами по статусу
+2. Возможно сделать сортировку по сумме заказа
+3. На карточке заказа изображена следующая информация
+   - Количество товаров
+   - Возможность завершения заказа
+   - Стоимость заказа
+   - Дата создания заказа
+   - Статус (текстом)
+   - Номер заказа
+   - Кнопка “Показать все товары”, показывающая все товары в данном заказе (модальное окно)
+4. При клике на товар в заказе есть возможность перейти в объявление продавца по этому товару
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### Панель навигации:
+1. Вкладка “Объявления” - реализован переход на страницу объявлений
+2. Вкладка “Заказы” - реализован переход на страницу заказов
