@@ -32,7 +32,10 @@ const AdvertisementDetail: React.FC = () => {
     }
   }, [dispatch, id]);
 
-  const handleFieldChange = (field: keyof Advertisment, value: any) => {
+  const handleFieldChange = (
+    field: keyof Advertisment,
+    value: string | number,
+  ) => {
     setEditedFields((prev) => ({
       ...prev,
       [field]: value,
@@ -114,8 +117,10 @@ const AdvertisementDetail: React.FC = () => {
             <p className={styles.date}>
               {loading ? (
                 <Skeleton width={150} />
+              ) : selectedAdvertisement?.createdAt ? (
+                `Создан: ${formatTime(selectedAdvertisement.createdAt)}`
               ) : (
-                `Создан: ${formatTime(selectedAdvertisement?.createdAt!)}`
+                'Дата неизвестна'
               )}
             </p>
             {isEditing ? (
