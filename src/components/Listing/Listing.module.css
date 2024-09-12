@@ -1,0 +1,32 @@
+.listing {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.error {
+    color: red;
+    font-size: 24px;
+    width: 100%;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.skeleton {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.emptyBox {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.emptyMessage {
+    font-size: 32px;
+    font-weight: 700;
+}

@@ -1,0 +1,40 @@
+.orderList {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    flex-direction: column;
+}
+
+.topTitle {
+    background-color: #7899e2;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.topTitle p:nth-child(1) {
+    width: 101px;
+    display: flex;
+    justify-content: center;
+}
+
+.topTitle p {
+    width: 165px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.emptyBox {
+    display: flex;
+    justify-content: center;
+}
+
+.emptyMessage {
+    font-size: 32px;
+    font-weight: 700;
+}

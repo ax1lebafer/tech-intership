@@ -1,0 +1,155 @@
+.detail {
+    max-width: 1000px;
+    margin: 0 auto;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.error {
+    width: 100%;
+    display: flex;
+}
+
+.header {
+    border-bottom: 1px solid black;
+    padding: 30px 40px;
+}
+
+.image {
+    width: 450px;
+    height: 450px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 20px;
+}
+
+.infoBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.input {
+    font-size: 36px;
+    font-weight: 700;
+    height: 54px;
+    border-radius: 20px;
+    border: 1px solid black;
+    padding: 0 15px;
+}
+
+.inputTitle {
+    width: 500px;
+}
+
+.inputPrice {
+    width: 200px;
+}
+
+.title {
+    font-weight: 700;
+    font-size: 36px;
+}
+
+.price {
+    font-weight: 700;
+    font-size: 36px;
+}
+
+.bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttonWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.buttonBox {
+    display: flex;
+    gap: 20px;
+}
+
+.button {
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: none;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.button:hover {
+    background-color: #c5c4c4;
+}
+
+.deleteButton {
+    width: 100%;
+    background-color: #ea5757;
+}
+
+.deleteButton:hover {
+    background-color: #ae2a2a;
+    color: white;
+    transition: all .5s;
+}
+
+.editButton {
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: none;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.editButton:hover {
+    background-color: #c5c4c4;
+}
+
+.section {
+    display: flex;
+    gap: 60px;
+    justify-content: space-between;
+    padding: 30px 40px;
+}
+
+.sectionBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+    gap: 20px;
+    min-height: 500px;
+}
+
+.editImage {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.descriptionTitle {
+    font-size: 36px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.textarea {
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 20px;
+    resize: none;
+    outline: none;
+}
+
